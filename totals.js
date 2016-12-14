@@ -1,31 +1,9 @@
-var data = [
-	{
-		year: "2013",
-		numbers: {
-			gft: 5.3,
-			pmd: 6.7,
-			rest: 10
-		}
-	},
-	{
-		year: "2014",
-		numbers: {
-			gft: 7.8,
-			pmd: 4.7,
-			rest: 12
-		}
-	},
-	{
-		year: "2015",
-		numbers: {
-			gft: 5.5,
-			pmd: 2.7,
-			rest: 8
-		}
-	},
-
-];
-
+var data = m.prop([]);
+m.startComputation();
+dataSource(function(d){
+  data(d);
+  m.endComputation();
+});
 var Iconstack = {
 	controller: function(){
 
@@ -48,20 +26,20 @@ var Iconstack = {
 
 var Main = {
 	view: function(){
-		return m("div", data.map(function(block){
+		return m("div", data().map(function(block){
 			return m("div",{class:"block"},
 				m("div", {class: "year"}, block.year),
 				m("div", {class: "iconstack"},[
-					m.component(Iconstack, block.numbers.rest, "black_container2.svg"),
-					m("div", {class: "number"}, block.numbers.rest+"k"),
+					m.component(Iconstack, block.numbers.rest/10, "black_container2.svg"),
+					m("div", {class: "number"}, block.numbers.rest/10+"k"),
 				]),
 				m("div", {class: "iconstack"},[
-					m.component(Iconstack, block.numbers.gft, "green_container2.svg"),
-					m("div", {class: "number"}, block.numbers.gft+"k"),
+					m.component(Iconstack, block.numbers.gft/10, "green_container2.svg"),
+					m("div", {class: "number"}, block.numbers.gft/10+"k"),
 				]),
 				m("div", {class: "iconstack"},[
-					m.component(Iconstack, block.numbers.pmd, "yellow_bag2.svg"),
-					m("div", {class: "number"}, block.numbers.pmd+"k"),
+					m.component(Iconstack, block.numbers.pmd/10, "yellow_bag2.svg"),
+					m("div", {class: "number"}, block.numbers.pmd/10+"k"),
 				])
 			);
 		}));
